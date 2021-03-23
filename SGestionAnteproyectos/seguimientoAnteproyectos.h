@@ -13,95 +13,112 @@
 extern "C" {
 #endif
 
-#define MAXNOM 40
+#define MAXNOMBRE 40
+#define MAXCONTE 200
 
-typedef struct nodo_anteproyecto *listaAnteproyectos;
-
-typedef struct nodo_resolucion *listaResoluciones;
-
-struct datos_anteproyecto {
-	int codigoAnteproyecto;
-	char nombrePrograma[MAXNOM];
-	char titulo[MAXNOM];
-	char objetivos[MAXCONTENIDO];
-	char estudiante01Nom[MAXNOM];
-	int estudiante01Cod;
-	char estudiante02Nom[MAXNOM];
-	int estudiante02Cod;
-	char director[MAXNOM];
-	char codirector[MAXNOM];
-	evaluacion infoEval[2];
-	coordinacion infoCoordi;
-	jefeDepto infoJefeDepto;
+struct registroEvaluacion {
+	char nombre[MAXNOMBRE];
+	char fecha[MAXNOMBRE];
+	bool_t concepto;
+	char observaciones[MAXCONTE];
 };
-typedef struct datos_anteproyecto datos_anteproyecto;
+typedef struct registroEvaluacion registroEvaluacion;
 
-struct datos_resolucion {
+struct registroCoordinacion {
+	bool_t estructura;
+	bool_t concepto;
+	char observaciones[MAXCONTE];
+};
+typedef struct registroCoordinacion registroCoordinacion;
+
+struct jefeDepartamento {
+	bool_t estructura;
+	bool_t concepto;
+	char observaciones[MAXCONTE];
+};
+typedef struct jefeDepartamento jefeDepartamento;
+
+struct registroAnteproyecto {
 	int codigoAnteproyecto;
-	char fechaResolucion[MAXNOM];
+	char nombrePrograma[MAXNOMBRE];
+	char titulo[MAXNOMBRE];
+	char objetivos[MAXCONTE];
+	char estudiante01Nom[MAXNOMBRE];
+	int estudiante01Cod;
+	char estudiante02Nom[MAXNOMBRE];
+	int estudiante02Cod;
+	char director[MAXNOMBRE];
+	char codirector[MAXNOMBRE];
+	registroEvaluacion infoEval[2];
+	registroCoordinacion infoCoordi;
+	jefeDepartamento infoJefeDepto;
+};
+typedef struct registroAnteproyecto registroAnteproyecto;
+
+struct registroResolucion {
+	int codigoAnteproyecto;
+	char fechaResolucion[MAXNOMBRE];
 	int numResolucion;
 };
-typedef struct datos_resolucion datos_resolucion;
+typedef struct registroResolucion registroResolucion;
 
-#define gestion_usuarios 0x20000013
-#define gestion_seguimiento_version 1
+#define gestion_seguimiento 0x20000012
+#define gestion_anteproyecto_version 1
 
 #if defined(__STDC__) || defined(__cplusplus)
-#define registrarAnteproyectoHistorial 1
-extern  bool_t * registraranteproyectohistorial_1(datos_anteproyecto *, CLIENT *);
-extern  bool_t * registraranteproyectohistorial_1_svc(datos_anteproyecto *, struct svc_req *);
-#define registrarResolucion 2
-extern  bool_t * registrarresolucion_1(datos_resolucion *, CLIENT *);
-extern  bool_t * registrarresolucion_1_svc(datos_resolucion *, struct svc_req *);
-#define consultarAnteproyectos 3
-extern  listaAnteproyectos * consultaranteproyectos_1(void *, CLIENT *);
-extern  listaAnteproyectos * consultaranteproyectos_1_svc(void *, struct svc_req *);
-#define consultarAprovados 4
-extern  listaResoluciones * consultaraprovados_1(void *, CLIENT *);
-extern  listaResoluciones * consultaraprovados_1_svc(void *, struct svc_req *);
-#define consultarAnteproyecto 5
-extern  datos_anteproyecto * consultaranteproyecto_1(int *, CLIENT *);
-extern  datos_anteproyecto * consultaranteproyecto_1_svc(int *, struct svc_req *);
-#define consultarAprovado 6
-extern  datos_resolucion * consultaraprovado_1(int *, CLIENT *);
-extern  datos_resolucion * consultaraprovado_1_svc(int *, struct svc_req *);
-extern int gestion_usuarios_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
+#define guardarAnteproyecto 1
+extern  bool_t * guardaranteproyecto_1(registroAnteproyecto *, CLIENT *);
+extern  bool_t * guardaranteproyecto_1_svc(registroAnteproyecto *, struct svc_req *);
+#define consultarAnteproyecto 2
+extern  registroAnteproyecto * consultaranteproyecto_1(int *, CLIENT *);
+extern  registroAnteproyecto * consultaranteproyecto_1_svc(int *, struct svc_req *);
+extern int gestion_seguimiento_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
-#define registrarAnteproyectoHistorial 1
-extern  bool_t * registraranteproyectohistorial_1();
-extern  bool_t * registraranteproyectohistorial_1_svc();
-#define registrarResolucion 2
-extern  bool_t * registrarresolucion_1();
-extern  bool_t * registrarresolucion_1_svc();
-#define consultarAnteproyectos 3
-extern  listaAnteproyectos * consultaranteproyectos_1();
-extern  listaAnteproyectos * consultaranteproyectos_1_svc();
-#define consultarAprovados 4
-extern  listaResoluciones * consultaraprovados_1();
-extern  listaResoluciones * consultaraprovados_1_svc();
-#define consultarAnteproyecto 5
-extern  datos_anteproyecto * consultaranteproyecto_1();
-extern  datos_anteproyecto * consultaranteproyecto_1_svc();
-#define consultarAprovado 6
-extern  datos_resolucion * consultaraprovado_1();
-extern  datos_resolucion * consultaraprovado_1_svc();
-extern int gestion_usuarios_1_freeresult ();
+#define guardarAnteproyecto 1
+extern  bool_t * guardaranteproyecto_1();
+extern  bool_t * guardaranteproyecto_1_svc();
+#define consultarAnteproyecto 2
+extern  registroAnteproyecto * consultaranteproyecto_1();
+extern  registroAnteproyecto * consultaranteproyecto_1_svc();
+extern int gestion_seguimiento_1_freeresult ();
+#endif /* K&R C */
+#define gestion_resolucion_version 2
+
+#if defined(__STDC__) || defined(__cplusplus)
+#define guardarResolucion 1
+extern  bool_t * guardarresolucion_2(registroResolucion *, CLIENT *);
+extern  bool_t * guardarresolucion_2_svc(registroResolucion *, struct svc_req *);
+#define consultarResolucion 2
+extern  registroResolucion * consultarresolucion_2(int *, CLIENT *);
+extern  registroResolucion * consultarresolucion_2_svc(int *, struct svc_req *);
+extern int gestion_seguimiento_2_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
+
+#else /* K&R C */
+#define guardarResolucion 1
+extern  bool_t * guardarresolucion_2();
+extern  bool_t * guardarresolucion_2_svc();
+#define consultarResolucion 2
+extern  registroResolucion * consultarresolucion_2();
+extern  registroResolucion * consultarresolucion_2_svc();
+extern int gestion_seguimiento_2_freeresult ();
 #endif /* K&R C */
 
 /* the xdr functions */
 
 #if defined(__STDC__) || defined(__cplusplus)
-extern  bool_t xdr_listaAnteproyectos (XDR *, listaAnteproyectos*);
-extern  bool_t xdr_listaResoluciones (XDR *, listaResoluciones*);
-extern  bool_t xdr_datos_anteproyecto (XDR *, datos_anteproyecto*);
-extern  bool_t xdr_datos_resolucion (XDR *, datos_resolucion*);
+extern  bool_t xdr_registroEvaluacion (XDR *, registroEvaluacion*);
+extern  bool_t xdr_registroCoordinacion (XDR *, registroCoordinacion*);
+extern  bool_t xdr_jefeDepartamento (XDR *, jefeDepartamento*);
+extern  bool_t xdr_registroAnteproyecto (XDR *, registroAnteproyecto*);
+extern  bool_t xdr_registroResolucion (XDR *, registroResolucion*);
 
 #else /* K&R C */
-extern bool_t xdr_listaAnteproyectos ();
-extern bool_t xdr_listaResoluciones ();
-extern bool_t xdr_datos_anteproyecto ();
-extern bool_t xdr_datos_resolucion ();
+extern bool_t xdr_registroEvaluacion ();
+extern bool_t xdr_registroCoordinacion ();
+extern bool_t xdr_jefeDepartamento ();
+extern bool_t xdr_registroAnteproyecto ();
+extern bool_t xdr_registroResolucion ();
 
 #endif /* K&R C */
 

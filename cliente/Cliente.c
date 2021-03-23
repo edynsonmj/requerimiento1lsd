@@ -13,16 +13,8 @@ gestion_anteproyecto_1(char *host)
 	CLIENT *clnt;
 	bool_t  *result_1;
 	datos_anteproyecto  registraranteproyecto_1_arg;
-	bool_t  *result_2;
-	datos_resolucion  registrarresolucion_1_arg;
-	listaAnteproyectos  *result_3;
-	char * consultaranteproyectos_1_arg;
-	datos_anteproyecto  *result_4;
-	int  consultaranteproyecto_1_arg;
-	bool_t  *result_5;
-	datos_usuario  registrarusuario_1_arg;
-	datos_usuario  *result_6;
-	datos_usuario  iniciarsesion_1_arg;
+	datos_anteproyecto  *result_2;
+	int  obteneranteproyecto_1_arg;
 
 #ifndef	DEBUG
 	clnt = clnt_create (host, gestion_anteproyecto, gestion_anteproyectos_version, "udp");
@@ -36,24 +28,76 @@ gestion_anteproyecto_1(char *host)
 	if (result_1 == (bool_t *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_2 = registrarresolucion_1(&registrarresolucion_1_arg, clnt);
-	if (result_2 == (bool_t *) NULL) {
+	result_2 = obteneranteproyecto_1(&obteneranteproyecto_1_arg, clnt);
+	if (result_2 == (datos_anteproyecto *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_3 = consultaranteproyectos_1(&consultaranteproyectos_1_arg, clnt);
-	if (result_3 == (listaAnteproyectos *) NULL) {
+#ifndef	DEBUG
+	clnt_destroy (clnt);
+#endif	 /* DEBUG */
+}
+
+
+void
+gestion_anteproyecto_2(char *host)
+{
+	CLIENT *clnt;
+	bool_t  *result_1;
+	datos_resolucion  registrarresolucion_2_arg;
+	datos_resolucion  *result_2;
+	int  obtenerresolucion_2_arg;
+
+#ifndef	DEBUG
+	clnt = clnt_create (host, gestion_anteproyecto, gestion_resoluciones_version, "udp");
+	if (clnt == NULL) {
+		clnt_pcreateerror (host);
+		exit (1);
+	}
+#endif	/* DEBUG */
+
+	result_1 = registrarresolucion_2(&registrarresolucion_2_arg, clnt);
+	if (result_1 == (bool_t *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_4 = consultaranteproyecto_1(&consultaranteproyecto_1_arg, clnt);
-	if (result_4 == (datos_anteproyecto *) NULL) {
+	result_2 = obtenerresolucion_2(&obtenerresolucion_2_arg, clnt);
+	if (result_2 == (datos_resolucion *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_5 = registrarusuario_1(&registrarusuario_1_arg, clnt);
-	if (result_5 == (bool_t *) NULL) {
+#ifndef	DEBUG
+	clnt_destroy (clnt);
+#endif	 /* DEBUG */
+}
+
+
+void
+gestion_anteproyecto_3(char *host)
+{
+	CLIENT *clnt;
+	bool_t  *result_1;
+	datos_usuario  registrarusuario_3_arg;
+	datos_usuario  *result_2;
+	int  obtenerusuario_3_arg;
+	datos_usuario  *result_3;
+	datos_usuario  iniciarsesion_3_arg;
+
+#ifndef	DEBUG
+	clnt = clnt_create (host, gestion_anteproyecto, gestion_usuarios_version, "udp");
+	if (clnt == NULL) {
+		clnt_pcreateerror (host);
+		exit (1);
+	}
+#endif	/* DEBUG */
+
+	result_1 = registrarusuario_3(&registrarusuario_3_arg, clnt);
+	if (result_1 == (bool_t *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_6 = iniciarsesion_1(&iniciarsesion_1_arg, clnt);
-	if (result_6 == (datos_usuario *) NULL) {
+	result_2 = obtenerusuario_3(&obtenerusuario_3_arg, clnt);
+	if (result_2 == (datos_usuario *) NULL) {
+		clnt_perror (clnt, "call failed");
+	}
+	result_3 = iniciarsesion_3(&iniciarsesion_3_arg, clnt);
+	if (result_3 == (datos_usuario *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 #ifndef	DEBUG
@@ -73,5 +117,7 @@ main (int argc, char *argv[])
 	}
 	host = argv[1];
 	gestion_anteproyecto_1 (host);
+	gestion_anteproyecto_2 (host);
+	gestion_anteproyecto_3 (host);
 exit (0);
 }

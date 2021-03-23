@@ -6,77 +6,109 @@
 #include "seguimientoAnteproyectos.h"
 
 bool_t
-xdr_listaAnteproyectos (XDR *xdrs, listaAnteproyectos *objp)
+xdr_registroEvaluacion (XDR *xdrs, registroEvaluacion *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_pointer (xdrs, (char **)objp, sizeof (struct nodo_anteproyecto), (xdrproc_t) xdr_nodo_anteproyecto))
+	int i;
+	 if (!xdr_vector (xdrs, (char *)objp->nombre, MAXNOMBRE,
+		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->fecha, MAXNOMBRE,
+		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	 if (!xdr_bool (xdrs, &objp->concepto))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->observaciones, MAXCONTE,
+		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	return TRUE;
 }
 
 bool_t
-xdr_listaResoluciones (XDR *xdrs, listaResoluciones *objp)
+xdr_registroCoordinacion (XDR *xdrs, registroCoordinacion *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_pointer (xdrs, (char **)objp, sizeof (struct nodo_resolucion), (xdrproc_t) xdr_nodo_resolucion))
+	int i;
+	 if (!xdr_bool (xdrs, &objp->estructura))
+		 return FALSE;
+	 if (!xdr_bool (xdrs, &objp->concepto))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->observaciones, MAXCONTE,
+		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	return TRUE;
 }
 
 bool_t
-xdr_datos_anteproyecto (XDR *xdrs, datos_anteproyecto *objp)
+xdr_jefeDepartamento (XDR *xdrs, jefeDepartamento *objp)
+{
+	register int32_t *buf;
+
+	int i;
+	 if (!xdr_bool (xdrs, &objp->estructura))
+		 return FALSE;
+	 if (!xdr_bool (xdrs, &objp->concepto))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->observaciones, MAXCONTE,
+		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_registroAnteproyecto (XDR *xdrs, registroAnteproyecto *objp)
 {
 	register int32_t *buf;
 
 	int i;
 	 if (!xdr_int (xdrs, &objp->codigoAnteproyecto))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->nombrePrograma, MAXNOM,
+	 if (!xdr_vector (xdrs, (char *)objp->nombrePrograma, MAXNOMBRE,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->titulo, MAXNOM,
+	 if (!xdr_vector (xdrs, (char *)objp->titulo, MAXNOMBRE,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->objetivos, MAXCONTENIDO,
+	 if (!xdr_vector (xdrs, (char *)objp->objetivos, MAXCONTE,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->estudiante01Nom, MAXNOM,
+	 if (!xdr_vector (xdrs, (char *)objp->estudiante01Nom, MAXNOMBRE,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->estudiante01Cod))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->estudiante02Nom, MAXNOM,
+	 if (!xdr_vector (xdrs, (char *)objp->estudiante02Nom, MAXNOMBRE,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->estudiante02Cod))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->director, MAXNOM,
+	 if (!xdr_vector (xdrs, (char *)objp->director, MAXNOMBRE,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->codirector, MAXNOM,
+	 if (!xdr_vector (xdrs, (char *)objp->codirector, MAXNOMBRE,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	 if (!xdr_vector (xdrs, (char *)objp->infoEval, 2,
-		sizeof (evaluacion), (xdrproc_t) xdr_evaluacion))
+		sizeof (registroEvaluacion), (xdrproc_t) xdr_registroEvaluacion))
 		 return FALSE;
-	 if (!xdr_coordinacion (xdrs, &objp->infoCoordi))
+	 if (!xdr_registroCoordinacion (xdrs, &objp->infoCoordi))
 		 return FALSE;
-	 if (!xdr_jefeDepto (xdrs, &objp->infoJefeDepto))
+	 if (!xdr_jefeDepartamento (xdrs, &objp->infoJefeDepto))
 		 return FALSE;
 	return TRUE;
 }
 
 bool_t
-xdr_datos_resolucion (XDR *xdrs, datos_resolucion *objp)
+xdr_registroResolucion (XDR *xdrs, registroResolucion *objp)
 {
 	register int32_t *buf;
 
 	int i;
 	 if (!xdr_int (xdrs, &objp->codigoAnteproyecto))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->fechaResolucion, MAXNOM,
+	 if (!xdr_vector (xdrs, (char *)objp->fechaResolucion, MAXNOMBRE,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->numResolucion))

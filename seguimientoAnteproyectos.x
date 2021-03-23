@@ -1,45 +1,58 @@
 /*Declaracion de datos a transferir entre el cliente y el servidor*/
 /*Declaracion de constantes*/
-const MAXNOM = 40;
-typedef struct nodo_anteproyecto * listaAnteproyectos;
-typedef struct nodo_resolucion * listaResoluciones;
+const MAXNOMBRE = 40;
+const MAXCONTE = 200;
 /*Declaracion de la estructura que permite almacenar los datos de un anteproyecto*/
-struct datos_anteproyecto{
+struct registroEvaluacion{
+    char nombre[MAXNOMBRE];
+    char fecha[MAXNOMBRE];
+    bool concepto;
+    char observaciones[MAXCONTE];
+};
+struct registroCoordinacion{
+    bool estructura;
+    bool concepto;
+    char observaciones[MAXCONTE];
+};
+struct jefeDepartamento{
+    bool estructura;
+    bool concepto;
+    char observaciones[MAXCONTE];
+};
+struct registroAnteproyecto{
     /*proyecto*/
     int codigoAnteproyecto;
-    char nombrePrograma[MAXNOM];
-    char titulo[MAXNOM];
-    char objetivos[MAXCONTENIDO];
+    char nombrePrograma[MAXNOMBRE];
+    char titulo[MAXNOMBRE];
+    char objetivos[MAXCONTE];
     /*estudiantes*/
-    char estudiante01Nom[MAXNOM];
+    char estudiante01Nom[MAXNOMBRE];
     int estudiante01Cod;
-    char estudiante02Nom[MAXNOM];
+    char estudiante02Nom[MAXNOMBRE];
     int estudiante02Cod;
     /*director*/
-    char director[MAXNOM];
-    char codirector[MAXNOM];
+    char director[MAXNOMBRE];
+    char codirector[MAXNOMBRE];
     /*B-C-D*/
-    evaluacion infoEval[2];
-    coordinacion infoCoordi;
-    jefeDepto infoJefeDepto;
+    registroEvaluacion infoEval[2];
+    registroCoordinacion infoCoordi;
+    jefeDepartamento infoJefeDepto;
 };
-struct datos_resolucion{
+/*informacion de la resolucion*/
+struct registroResolucion{
     int codigoAnteproyecto;
-    char fechaResolucion[MAXNOM];
+    char fechaResolucion[MAXNOMBRE];
     int numResolucion;
 };
 
 /*Definicion de las operaciones que se pueden realizar*/
-program gestion_usuarios{
-    version gestion_seguimiento_version{
-        /*registrar*/
-        bool registrarAnteproyectoHistorial(datos_anteproyecto)=1;
-        bool registrarResolucion(datos_resolucion)=2;
-        /*obtener todo*/
-        listaAnteproyectos consultarAnteproyectos(void)=3;
-        listaResoluciones consultarAprovados(void)=4;
-        /*obtener 1*/
-        datos_anteproyecto consultarAnteproyecto(int codigo)=5;
-        datos_resolucion consultarAprovado(int codigo)=6;
+program gestion_seguimiento{
+    version gestion_anteproyecto_version{
+        bool guardarAnteproyecto(registroAnteproyecto objAnteproyecto)=1;
+        registroAnteproyecto consultarAnteproyecto(int id)=2;
     }=1;
-}=0x20000013;
+    version gestion_resolucion_version{
+        bool guardarResolucion(registroResolucion objResolucion)=1;
+        registroResolucion consultarResolucion(int id)=2;
+    }=2;
+}=0x20000012;

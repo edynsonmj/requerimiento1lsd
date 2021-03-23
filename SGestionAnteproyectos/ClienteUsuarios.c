@@ -12,24 +12,30 @@ gestion_usuarios_1(char *host)
 {
 	CLIENT *clnt;
 	bool_t  *result_1;
-	datos_usuario  registrarusuario_1_arg;
-	datos_usuario  *result_2;
-	datos_usuario  iniciarsesion_1_arg;
+	registroUsuario  almacenarusuario_1_arg;
+	registroUsuario  *result_2;
+	int  consultarusuario_1_arg;
+	registroUsuario  *result_3;
+	registroUsuario  autenticar_1_arg;
 
 #ifndef	DEBUG
-	clnt = clnt_create (host, gestion_usuarios, gestion_usuarios_version, "udp");
+	clnt = clnt_create (host, gestion_usuarios, gestion_usuario_version, "udp");
 	if (clnt == NULL) {
 		clnt_pcreateerror (host);
 		exit (1);
 	}
 #endif	/* DEBUG */
 
-	result_1 = registrarusuario_1(&registrarusuario_1_arg, clnt);
+	result_1 = almacenarusuario_1(&almacenarusuario_1_arg, clnt);
 	if (result_1 == (bool_t *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_2 = iniciarsesion_1(&iniciarsesion_1_arg, clnt);
-	if (result_2 == (datos_usuario *) NULL) {
+	result_2 = consultarusuario_1(&consultarusuario_1_arg, clnt);
+	if (result_2 == (registroUsuario *) NULL) {
+		clnt_perror (clnt, "call failed");
+	}
+	result_3 = autenticar_1(&autenticar_1_arg, clnt);
+	if (result_3 == (registroUsuario *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 #ifndef	DEBUG

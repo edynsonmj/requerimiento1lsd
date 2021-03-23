@@ -7,10 +7,10 @@
 #include "gestionUsuarios.h"
 
 bool_t *
-registrarusuario_1_svc(datos_usuario *argp, struct svc_req *rqstp)
+almacenarusuario_1_svc(registroUsuario *argp, struct svc_req *rqstp)
 {
 	static bool_t  result;
-
+	printf("\ninvocado\n");
 	/*
 	 * insert server code here
 	 */
@@ -18,11 +18,23 @@ registrarusuario_1_svc(datos_usuario *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-datos_usuario *
-iniciarsesion_1_svc(datos_usuario *argp, struct svc_req *rqstp)
+registroUsuario *
+consultarusuario_1_svc(int *argp, struct svc_req *rqstp)
 {
-	static datos_usuario  result;
+	static registroUsuario  result;
+	printf("\ninvocado\n");
+	/*
+	 * insert server code here
+	 */
 
+	return &result;
+}
+
+registroUsuario *
+autenticar_1_svc(registroUsuario *argp, struct svc_req *rqstp)
+{
+	static registroUsuario  result;
+	printf("\ninvocado\n");
 	/*
 	 * insert server code here
 	 */

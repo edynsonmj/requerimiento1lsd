@@ -6,7 +6,7 @@
 #include "gestionUsuarios.h"
 
 bool_t
-xdr_datos_usuario (XDR *xdrs, datos_usuario *objp)
+xdr_registroUsuario (XDR *xdrs, registroUsuario *objp)
 {
 	register int32_t *buf;
 

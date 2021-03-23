@@ -15,7 +15,7 @@ extern "C" {
 
 #define MAXNOM 40
 
-struct datos_usuario {
+struct registroUsuario {
 	int identificacion;
 	char departamento[MAXNOM];
 	char role[MAXNOM];
@@ -23,37 +23,43 @@ struct datos_usuario {
 	char login[MAXNOM];
 	char password[MAXNOM];
 };
-typedef struct datos_usuario datos_usuario;
+typedef struct registroUsuario registroUsuario;
 
-#define gestion_usuarios 0x20000011
-#define gestion_usuarios_version 1
+#define gestion_usuarios 0x20000013
+#define gestion_usuario_version 1
 
 #if defined(__STDC__) || defined(__cplusplus)
-#define registrarUsuario 1
-extern  bool_t * registrarusuario_1(datos_usuario *, CLIENT *);
-extern  bool_t * registrarusuario_1_svc(datos_usuario *, struct svc_req *);
-#define iniciarSesion 2
-extern  datos_usuario * iniciarsesion_1(datos_usuario *, CLIENT *);
-extern  datos_usuario * iniciarsesion_1_svc(datos_usuario *, struct svc_req *);
+#define almacenarUsuario 1
+extern  bool_t * almacenarusuario_1(registroUsuario *, CLIENT *);
+extern  bool_t * almacenarusuario_1_svc(registroUsuario *, struct svc_req *);
+#define consultarUsuario 2
+extern  registroUsuario * consultarusuario_1(int *, CLIENT *);
+extern  registroUsuario * consultarusuario_1_svc(int *, struct svc_req *);
+#define autenticar 3
+extern  registroUsuario * autenticar_1(registroUsuario *, CLIENT *);
+extern  registroUsuario * autenticar_1_svc(registroUsuario *, struct svc_req *);
 extern int gestion_usuarios_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
-#define registrarUsuario 1
-extern  bool_t * registrarusuario_1();
-extern  bool_t * registrarusuario_1_svc();
-#define iniciarSesion 2
-extern  datos_usuario * iniciarsesion_1();
-extern  datos_usuario * iniciarsesion_1_svc();
+#define almacenarUsuario 1
+extern  bool_t * almacenarusuario_1();
+extern  bool_t * almacenarusuario_1_svc();
+#define consultarUsuario 2
+extern  registroUsuario * consultarusuario_1();
+extern  registroUsuario * consultarusuario_1_svc();
+#define autenticar 3
+extern  registroUsuario * autenticar_1();
+extern  registroUsuario * autenticar_1_svc();
 extern int gestion_usuarios_1_freeresult ();
 #endif /* K&R C */
 
 /* the xdr functions */
 
 #if defined(__STDC__) || defined(__cplusplus)
-extern  bool_t xdr_datos_usuario (XDR *, datos_usuario*);
+extern  bool_t xdr_registroUsuario (XDR *, registroUsuario*);
 
 #else /* K&R C */
-extern bool_t xdr_datos_usuario ();
+extern bool_t xdr_registroUsuario ();
 
 #endif /* K&R C */
 

@@ -7,10 +7,22 @@
 #include "seguimientoAnteproyectos.h"
 
 bool_t *
-registraranteproyectohistorial_1_svc(datos_anteproyecto *argp, struct svc_req *rqstp)
+guardaranteproyecto_1_svc(registroAnteproyecto *argp, struct svc_req *rqstp)
 {
 	static bool_t  result;
+	printf("\ninvocado\n");
+	/*
+	 * insert server code here
+	 */
 
+	return &result;
+}
+
+registroAnteproyecto *
+consultaranteproyecto_1_svc(int *argp, struct svc_req *rqstp)
+{
+	static registroAnteproyecto  result;
+	printf("\ninvocado\n");
 	/*
 	 * insert server code here
 	 */
@@ -19,10 +31,10 @@ registraranteproyectohistorial_1_svc(datos_anteproyecto *argp, struct svc_req *r
 }
 
 bool_t *
-registrarresolucion_1_svc(datos_resolucion *argp, struct svc_req *rqstp)
+guardarresolucion_2_svc(registroResolucion *argp, struct svc_req *rqstp)
 {
 	static bool_t  result;
-
+	printf("\ninvocado\n");
 	/*
 	 * insert server code here
 	 */
@@ -30,47 +42,11 @@ registrarresolucion_1_svc(datos_resolucion *argp, struct svc_req *rqstp)
 	return &result;
 }
 
-listaAnteproyectos *
-consultaranteproyectos_1_svc(void *argp, struct svc_req *rqstp)
+registroResolucion *
+consultarresolucion_2_svc(int *argp, struct svc_req *rqstp)
 {
-	static listaAnteproyectos  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-listaResoluciones *
-consultaraprovados_1_svc(void *argp, struct svc_req *rqstp)
-{
-	static listaResoluciones  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-datos_anteproyecto *
-consultaranteproyecto_1_svc(int *argp, struct svc_req *rqstp)
-{
-	static datos_anteproyecto  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-datos_resolucion *
-consultaraprovado_1_svc(int *argp, struct svc_req *rqstp)
-{
-	static datos_resolucion  result;
-
+	static registroResolucion  result;
+	printf("\ninvocado\n");
 	/*
 	 * insert server code here
 	 */

@@ -24,8 +24,23 @@ registraranteproyecto_1(datos_anteproyecto *argp, CLIENT *clnt)
 	return (&clnt_res);
 }
 
+datos_anteproyecto *
+obteneranteproyecto_1(int *argp, CLIENT *clnt)
+{
+	static datos_anteproyecto clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, obtenerAnteproyecto,
+		(xdrproc_t) xdr_int, (caddr_t) argp,
+		(xdrproc_t) xdr_datos_anteproyecto, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}
+
 bool_t *
-registrarresolucion_1(datos_resolucion *argp, CLIENT *clnt)
+registrarresolucion_2(datos_resolucion *argp, CLIENT *clnt)
 {
 	static bool_t clnt_res;
 
@@ -39,30 +54,15 @@ registrarresolucion_1(datos_resolucion *argp, CLIENT *clnt)
 	return (&clnt_res);
 }
 
-listaAnteproyectos *
-consultaranteproyectos_1(char **argp, CLIENT *clnt)
+datos_resolucion *
+obtenerresolucion_2(int *argp, CLIENT *clnt)
 {
-	static listaAnteproyectos clnt_res;
+	static datos_resolucion clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
-	if (clnt_call (clnt, consultarAnteproyectos,
-		(xdrproc_t) xdr_wrapstring, (caddr_t) argp,
-		(xdrproc_t) xdr_listaAnteproyectos, (caddr_t) &clnt_res,
-		TIMEOUT) != RPC_SUCCESS) {
-		return (NULL);
-	}
-	return (&clnt_res);
-}
-
-datos_anteproyecto *
-consultaranteproyecto_1(int *argp, CLIENT *clnt)
-{
-	static datos_anteproyecto clnt_res;
-
-	memset((char *)&clnt_res, 0, sizeof(clnt_res));
-	if (clnt_call (clnt, consultarAnteproyecto,
+	if (clnt_call (clnt, obtenerResolucion,
 		(xdrproc_t) xdr_int, (caddr_t) argp,
-		(xdrproc_t) xdr_datos_anteproyecto, (caddr_t) &clnt_res,
+		(xdrproc_t) xdr_datos_resolucion, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
 	}
@@ -70,7 +70,7 @@ consultaranteproyecto_1(int *argp, CLIENT *clnt)
 }
 
 bool_t *
-registrarusuario_1(datos_usuario *argp, CLIENT *clnt)
+registrarusuario_3(datos_usuario *argp, CLIENT *clnt)
 {
 	static bool_t clnt_res;
 
@@ -85,7 +85,22 @@ registrarusuario_1(datos_usuario *argp, CLIENT *clnt)
 }
 
 datos_usuario *
-iniciarsesion_1(datos_usuario *argp, CLIENT *clnt)
+obtenerusuario_3(int *argp, CLIENT *clnt)
+{
+	static datos_usuario clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, obtenerUsuario,
+		(xdrproc_t) xdr_int, (caddr_t) argp,
+		(xdrproc_t) xdr_datos_usuario, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}
+
+datos_usuario *
+iniciarsesion_3(datos_usuario *argp, CLIENT *clnt)
 {
 	static datos_usuario clnt_res;
 
